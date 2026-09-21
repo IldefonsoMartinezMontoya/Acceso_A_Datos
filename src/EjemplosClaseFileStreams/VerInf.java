@@ -1,4 +1,6 @@
-import java.io.*; 
+package EjemplosClaseFileStreams;
+
+import java.io.*;
 public class VerInf { 
     public static void main(String[] args) {
         System.out.println("INFORMACIÓN SOBRE EL FICHERO:");

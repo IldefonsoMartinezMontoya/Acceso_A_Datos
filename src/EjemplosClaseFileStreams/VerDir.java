@@ -1,4 +1,6 @@
-import java.io.*; 
+package EjemplosClaseFileStreams;
+
+import java.io.*;
 public class VerDir { 
     public static void main(String[] args) {
         String dir = "."; //directorio actual 
