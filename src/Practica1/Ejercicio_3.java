@@ -2,13 +2,10 @@ package Practica1;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
 
 public class Ejercicio_3 extends JFrame {
-    static Scanner sc = new Scanner(System.in);
     public Ejercicio_3() {
         setTitle("Ficheros");
         setSize(800, 600);
@@ -19,7 +16,7 @@ public class Ejercicio_3 extends JFrame {
         JPanel botonCrear = new JPanel(new BorderLayout());
         JButton crearFichero = new JButton("Crear Fichero");
 
-        JPanel datosFichero = new JPanel(new GridLayout(4, 3));
+        JPanel datosFichero = new JPanel(new GridLayout(4, 4));
         JLabel nombre = new JLabel("Nombre: ");
         nombre.setHorizontalAlignment(JLabel.CENTER);
         JTextField escNombre = new JTextField();
@@ -38,34 +35,71 @@ public class Ejercicio_3 extends JFrame {
         JButton terminar = new JButton("Terminar");
         datosFichero.add(terminar);
         terminar.addActionListener(e -> {
-            datosFichero.setVisible(false);
-            botonCrear.setVisible(true);
-            revalidate();
-            repaint();
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/Practica1/Ejercicio_3_texto.txt"))){
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/Practica1/Ejercicio_3_texto.txt", true))){
                 bw.write("Nombre: " + escNombre.getText());
                 bw.newLine();
                 bw.write("Apellidos: " + escApellido.getText());
                 bw.newLine();
                 bw.write("Ciudad Natal: " + escCiudad.getText());
+                bw.newLine();
+                escNombre.setText("");
+                escApellido.setText("");
+                escCiudad.setText("");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         });
-
-        crearFichero.addActionListener(e -> {
-            datosFichero.setVisible(true);
-            botonCrear.setVisible(false);
+        JButton cerrar = new JButton("Cerrar");
+        datosFichero.add(cerrar);
+        cerrar.addActionListener(e -> {
+            datosFichero.setVisible(false);
+            botonCrear.setVisible(true);
             revalidate();
             repaint();
         });
         botonCrear.add(crearFichero);
 
+        JPanel mostrarFichero = new JPanel(new BorderLayout());
+        JButton mostrar = getJButton();
+
+        crearFichero.addActionListener(e -> {
+            datosFichero.setVisible(true);
+            botonCrear.setVisible(false);
+            mostrarFichero.setVisible(false);
+            revalidate();
+            repaint();
+        });
+        mostrarFichero.add(mostrar);
         add(botonCrear);
         botonCrear.setVisible(true);
-        add(datosFichero);
+        add(mostrarFichero);
+        mostrarFichero.setVisible(true);
         datosFichero.setVisible(false);
+        add(datosFichero);
         setVisible(true);
+    }
+
+    private static JButton getJButton() {
+        JButton mostrar = new JButton("Mostrar");
+        mostrar.addActionListener(e -> {
+            JFrame nuevaVentana = new JFrame("Contenido Fichero de Texto");
+            nuevaVentana.setSize(400, 300);
+            nuevaVentana.setLocationRelativeTo(null);
+            nuevaVentana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+            JTextArea mostrarTexto = new JTextArea();
+            try (BufferedReader br = new BufferedReader(new FileReader("src/Practica1/Ejercicio_3_texto.txt"))){
+                String linea;
+                while ((linea = br.readLine()) != null) {
+                    mostrarTexto.append(linea + "\n");
+                }
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            nuevaVentana.add(mostrarTexto);
+            nuevaVentana.setVisible(true);
+        });
+        return mostrar;
     }
 
     static void main() {
