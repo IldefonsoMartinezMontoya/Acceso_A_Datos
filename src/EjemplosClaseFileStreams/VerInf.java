@@ -2,7 +2,7 @@ package EjemplosClaseFileStreams;
 
 import java.io.*;
 public class VerInf { 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         System.out.println("INFORMACIÓN SOBRE EL FICHERO:");
         String directorio = ".";
         File f = new File(directorio,"Verinf.java");
