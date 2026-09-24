@@ -1,5 +1,4 @@
-Nombre: holaaaaaa
-Apellidos: adiosaaaa
-Ciudad Natal: linaeresaaaaNombre: gilipollas
-Apellidos: tusmuertos
-Ciudad Natal: barcelona
+Nombre: Eduardo 
+Apellidos: Cano
+Ciudad natal: Cementerio
+
