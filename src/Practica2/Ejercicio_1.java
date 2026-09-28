@@ -50,20 +50,21 @@ public class Ejercicio_1 extends JFrame {
         cerrarPrograma.addActionListener(e -> System.exit(0));
 
         terminar.addActionListener(e -> {
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARCHIVO, true))) {
-                bw.write("Nombre: " + escNombre.getText());
-                bw.newLine();
-                bw.write("Apellidos: " + escApellido.getText());
-                bw.newLine();
-                bw.write("Ciudad natal: " + escCiudad.getText());
-                bw.newLine();
-                bw.newLine();
+            try (DataOutputStream salida = new DataOutputStream(new FileOutputStream(ARCHIVO, true))) {
+
+                salida.writeUTF(escNombre.getText());
+                salida.writeUTF(escApellido.getText());
+                salida.writeUTF(escCiudad.getText());
+
                 escNombre.setText("");
                 escApellido.setText("");
                 escCiudad.setText("");
+
                 JOptionPane.showMessageDialog(this, "Datos guardados.");
+
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(this, "No se pudieron guardar los datos: " + ex.getMessage(),
+                JOptionPane.showMessageDialog(this,
+                        "No se pudieron guardar los datos: " + ex.getMessage(),
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
@@ -74,15 +75,24 @@ public class Ejercicio_1 extends JFrame {
     private void mostrarFichero() {
         JTextArea texto = new JTextArea();
         texto.setEditable(false);
-        try (BufferedReader br = new BufferedReader(new FileReader(ARCHIVO))) {
-            String linea;
-            while ((linea = br.readLine()) != null) texto.append(linea + "\n");
+        try (DataInputStream entrada = new DataInputStream(new FileInputStream(ARCHIVO))) {
+            while (true) {
+                String nombre = entrada.readUTF();
+                String apellido = entrada.readUTF();
+                String ciudad = entrada.readUTF();
+                texto.append("Nombre: " + nombre + "\n");
+                texto.append("Apellidos: " + apellido + "\n");
+                texto.append("Ciudad natal: " + ciudad + "\n\n");
+            }
+        } catch (EOFException _) {
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "No se pudo leer el fichero: " + ex.getMessage(),
+            JOptionPane.showMessageDialog(this,
+                    "No se pudo leer el fichero: " + ex.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        JFrame ventana = new JFrame("Contenido del fichero de texto");
+
+        JFrame ventana = new JFrame("Contenido del fichero binario");
         ventana.setSize(400, 300);
         ventana.setLocationRelativeTo(this);
         ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
