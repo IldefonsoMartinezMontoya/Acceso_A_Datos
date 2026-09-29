@@ -97,9 +97,7 @@ public class Becario {
     }
 
     private static void guardarBecario(Becario becario) {
-        try (DataOutputStream dos =
-                     new DataOutputStream(new FileOutputStream(ARCHIVO, true))) {
-
+        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(ARCHIVO, true))) {
             dos.writeUTF(becario.nombre);
             dos.writeUTF(becario.sexo);
             dos.writeInt(becario.edad);
@@ -108,7 +106,6 @@ public class Becario {
             dos.writeDouble(becario.sal);
 
             System.out.println("Becario guardado.");
-
         } catch (IOException e) {
             System.out.println("No se pudo guardar el fichero: " + e.getMessage());
         }
