@@ -1,0 +1,26 @@
+<Practica4.Becario__Xstream_-Becarios>
+  <Becario>
+    <nombre>Ildefonso</nombre>
+    <sexo>H</sexo>
+    <edad>33</edad>
+    <suspensosCursoAnterior>0</suspensosCursoAnterior>
+    <residenciaParental>Si</residenciaParental>
+    <ingresosAnualesFamiliares>99.0</ingresosAnualesFamiliares>
+  </Becario>
+  <Becario>
+    <nombre>Matador de Elefantes</nombre>
+    <sexo>M</sexo>
+    <edad>21</edad>
+    <suspensosCursoAnterior>3</suspensosCursoAnterior>
+    <residenciaParental>No</residenciaParental>
+    <ingresosAnualesFamiliares>88.0</ingresosAnualesFamiliares>
+  </Becario>
+  <Becario>
+    <nombre>Raúl</nombre>
+    <sexo>H</sexo>
+    <edad>21</edad>
+    <suspensosCursoAnterior>2</suspensosCursoAnterior>
+    <residenciaParental>Si</residenciaParental>
+    <ingresosAnualesFamiliares>77.0</ingresosAnualesFamiliares>
+  </Becario>
+</Practica4.Becario__Xstream_-Becarios>
