@@ -28,6 +28,11 @@
             <artifactId>xstream</artifactId>
             <version>1.4.21</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>4.0.9</version>
+        </dependency>
     </dependencies>
 
 </project>

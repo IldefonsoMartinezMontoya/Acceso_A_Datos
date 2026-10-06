@@ -30,13 +30,6 @@
                     <tbody>
                         <!-- Recorre los registros que cuelgan de la raíz -->
                         <xsl:for-each select="/*/*">
-
-                            <!--
-                            TODO: si el enunciado pide ordenar los registros,
-                            coloca aquí un xsl:sort y cambia CAMPO por una etiqueta:
-                            <xsl:sort select="CAMPO" order="ascending"/>
-                            -->
-
                             <tr>
                                 <!-- Escribe una celda por cada campo del registro -->
                                 <xsl:for-each select="*">

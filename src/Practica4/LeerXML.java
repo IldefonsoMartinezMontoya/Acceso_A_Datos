@@ -15,6 +15,7 @@ public class LeerXML {
     static File Archivo = new File("src/Practica4/Becario.xml");
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException {
+        //PRIMER PASO: CREAR EL DOCUMENTO
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document documento = builder.parse(Archivo);
@@ -23,6 +24,7 @@ public class LeerXML {
 
         NodeList becarios = documento.getElementsByTagName("Becario");
 
+        //SEGUNDO PASO: RECORRER EL XML
         for (int i = 0; i < becarios.getLength(); i++) {
             Element becario = (Element) becarios.item(i);
 
@@ -43,6 +45,7 @@ public class LeerXML {
             System.out.println("Ingrersos anuales de la familia: " + sal);
         }
     }
+    //TERCER PASO: TRANSFORMAR A TEXTO
     private static String obtenertexto(Element elemento, String etiqueta) {
         NodeList nodos = elemento.getElementsByTagName(etiqueta);
         if (nodos.getLength() == 0) {

@@ -5,6 +5,11 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamImplicit;
 
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -50,6 +55,21 @@ public class Becario_Xstream {
             xstream.toXML(datos, wr);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+
+        Path plantilla = Path.of("src/Practica4/HTML.xsl");
+        Path pagina = Path.of("src/Practica4/Becario.html");
+
+        try {
+            Transformer transformador = TransformerFactory.newInstance()
+                    .newTransformer(new StreamSource(plantilla.toFile()));
+
+            transformador.transform(
+                    new StreamSource(Objetivo.toFile()),
+                    new StreamResult(pagina.toFile())
+            );
+        } catch (TransformerException e) {
+            throw new RuntimeException("No se pudo transformar el XML a HTML", e);
         }
     }
     //QUINTO PASO: INICIALIZAR LA RAÍZ
