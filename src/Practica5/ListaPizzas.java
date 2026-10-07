@@ -8,9 +8,9 @@ import java.util.List;
 
 @XmlRootElement(name = "pizzas")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class Contenedor {
+public class ListaPizzas {
     protected List<Pizza> pizza;
-    public Contenedor() {}
+    public ListaPizzas() {}
 
     public List<Pizza> getPizza() {
         return pizza;
