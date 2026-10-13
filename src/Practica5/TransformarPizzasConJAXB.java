@@ -6,7 +6,7 @@ import jakarta.xml.bind.JAXBException;
 import java.io.File;
 import java.util.Arrays;
 
-public class TransformarConJAXB {
+public class TransformarPizzasConJAXB {
     public static void main(String[] args) throws JAXBException {
         JAXBContext contexto = JAXBContext.newInstance(ListaPizzas.class);
 

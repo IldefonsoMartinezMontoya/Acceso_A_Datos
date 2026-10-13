@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE recetas SYSTEM "recetas.dtd">
-
 <recetas>
 	<receta>
 		<tipo definicion="postre"/>
@@ -42,7 +40,7 @@
 		</ingredientes>
 		<calorias>450</calorias>
 		<pasos>
-			<paso orden="1"> Echar la mitad del azúcar en la nata liquida y montarla hasta que quede muy compacta.</paso>
+			<paso orden="1"> Echar la mitad del azúcar en la nata líquida y montarla hasta que quede muy compacta.</paso>
 			<paso orden="2">Separar las claras de las yemas y montarlas a punto de nieve.</paso>
 			<paso orden="3">Mezclar despacio el queso y las yemas de huevo, añadiendo el resto del azúcar.</paso>
 			<paso orden="4">Cuando el queso y las yemas estén mezclados juntar con la nata montada y las claras a punto de nieve y mezclar todo bien, pero despacio.</paso>
