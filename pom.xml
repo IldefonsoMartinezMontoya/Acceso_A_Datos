@@ -43,6 +43,16 @@
             <artifactId>derby</artifactId>
             <version>10.17.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.5.252</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.7.4</version>
+        </dependency>
     </dependencies>
 
 </project>
