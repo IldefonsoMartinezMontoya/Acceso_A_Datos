@@ -10,7 +10,7 @@ public class Ejercicio_2_VIsualizarAlumno {
     public static void main(String[] args) {
         try (Connection con = DriverManager.getConnection(URL, USER, PASS)) {
 
-            sql = "SELECT apenom, asignatura, nota FROM alumnos JOIN notas ON notas.dni = alumnos.dni JOIN asignaturas " +
+            sql = "SELECT apenom, nombre as asignatura, nota FROM alumnos JOIN notas ON notas.dni = alumnos.dni JOIN asignaturas " +
                     "ON asignaturas.cod = notas.cod ORDER BY alumnos.apenom ASC, alumnos.dni ASC, notas.nota DESC";
             try (Statement st = con.createStatement();
                  ResultSet rs = st.executeQuery(sql)) {

@@ -11,7 +11,7 @@ public class Ejercicio_1_BusquedaMadrid {
     public static void main(String[] args) {
         try (Connection con = DriverManager.getConnection(URL, USER, PASS)) {
 
-            sql = "SELECT dni, apenom, pobla FROM alumnos where poblacion = 'Madrid' ORDER BY apenom";
+            sql = "SELECT dni, apenom, telef FROM alumnos where pobla = 'Madrid' ORDER BY apenom";
             try (Statement st = con.createStatement();
                  ResultSet rs = st.executeQuery(sql)) {
                 System.out.println("ALUMNOS:");
