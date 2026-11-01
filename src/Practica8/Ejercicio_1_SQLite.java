@@ -1,0 +1,116 @@
+package Practica8;
+
+import java.sql.*;
+
+public class Ejercicio_1_SQLite {
+    private static final String URL = "jdbc:sqlite:C:/Users/estudiante/Desktop/BBDD/SQLIte/miDatabase.db";
+    private static final String TABLA = "departamentos";
+
+    public static void main(String[] args) {
+        try (Connection con = DriverManager.getConnection(URL)){
+            DatabaseMetaData dbmd = con.getMetaData();
+            String catalogo = con.getCatalog();
+            mostrarInfoGeneral(dbmd);
+            mostrarTablas(dbmd, catalogo);
+            mostrarColumnas(dbmd, catalogo);
+            mostrarClavePrimaria(dbmd, catalogo);
+            mostrarClavesAjenas(dbmd, catalogo);
+            mostrarProcedimientos(dbmd, catalogo);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private static void mostrarInfoGeneral(DatabaseMetaData dbmd) throws SQLException {
+        titulo("Informacion sobre la Base de Datos");
+        System.out.printf("Nombre : %s %n", dbmd.getDatabaseProductName());
+        System.out.printf("Versión: %s %n", dbmd.getDatabaseProductVersion());
+        System.out.printf("Driver : %s %n", dbmd.getDriverName());
+        System.out.printf("URL    : %s %n", dbmd.getURL());
+        System.out.printf("Usuario: %s %n", dbmd.getUserName());
+    }
+    private static void mostrarTablas(DatabaseMetaData dbmd, String catalogo) {
+        titulo("Tablas y Vistas de '" + catalogo + "'");
+        try (ResultSet rs = dbmd.getTables(catalogo, null, null, null)){
+            while (rs.next()) {
+                String tipo = rs.getString("TABLE_TYPE");
+                String nombre = rs.getString("TABLE_NAME");
+                System.out.printf("%-6s -> %s %n", tipo, nombre);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private static void mostrarColumnas(DatabaseMetaData dbmd, String catalogo) {
+        titulo("Columnas de la tabla '" + Ejercicio_1_SQLite.TABLA + "'");
+        try (ResultSet rs = dbmd.getColumns(catalogo, null, Ejercicio_1_SQLite.TABLA, null)){
+            while (rs.next()) {
+                String nombre = rs.getString("COLUMN_NAME");
+                String tipo = rs.getString("TYPE_NAME");
+                int tamanio = rs.getInt("COLUMN_SIZE");
+                String nula = rs.getString("IS_NULLABLE");
+                System.out.printf("Columna: %-12s Tipo: %-10s Tamaño: %-5d ¿Nula?: %s %n", nombre, tipo, tamanio, nula);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private static void mostrarClavePrimaria(DatabaseMetaData dbmd, String catalogo) {
+        titulo("Clave primaria de '" + Ejercicio_1_SQLite.TABLA + "'");
+        StringBuilder pk = new StringBuilder();
+        try (ResultSet rs = dbmd.getPrimaryKeys(catalogo, null, Ejercicio_1_SQLite.TABLA)){
+            while (rs.next()) {
+                if (!pk.isEmpty()) {
+                    pk.append(" + ");
+                }
+                pk.append(rs.getString("COLUMN_NAME"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Clave primaria: " + pk);
+    }
+    private static void mostrarClavesAjenas(DatabaseMetaData dbmd, String catalogo) {
+        titulo("Claves ajenas que referencian a '" + Ejercicio_1_SQLite.TABLA + "'");
+        try (ResultSet rs = dbmd.getExportedKeys(catalogo, null, Ejercicio_1_SQLite.TABLA)){
+            while (rs.next()) {
+                String tablaPK = rs.getString("PKTABLE_NAME");
+                String columnaPK = rs.getString("PKCOLUMN_NAME");
+                String tablaFK = rs.getString("FKTABLE_NAME");
+                String columnaFK = rs.getString("FKCOLIMN_NAME");
+                System.out.printf("%s.%s <-- %s.%s %n", tablaPK, columnaPK, tablaFK, columnaFK);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private static void mostrarProcedimientos(DatabaseMetaData dbmd, String catalogo) throws SQLException {
+        titulo("Procedimientos almacenados");
+        boolean hayProcedimientos = false;
+        try (ResultSet rs = dbmd.getProcedures(catalogo, null, null)){
+            while (rs.next()) {
+                hayProcedimientos = true;
+                String nombre = rs.getString("PROCEDURE_NAME");
+                int tipo = rs.getInt("PROCEDURE_TYPE");
+                String descripcionTipo;
+                switch (tipo) {
+                    case DatabaseMetaData.procedureNoResult:
+                        descripcionTipo = "no devuelve resultado";
+                        break;
+                    case DatabaseMetaData.procedureReturnsResult:
+                        descripcionTipo = "devuelve resultado";
+                        break;
+                    default:
+                        descripcionTipo = "resultado desconocido";
+                }
+                System.out.printf("Procedimiento: %s (%s) %n", nombre, descripcionTipo);
+            }
+        }
+        if (!hayProcedimientos) {
+            System.out.println("(No hay procedimientos almacenados)");
+        }
+    }
+    private static void titulo(String texto) {
+        System.out.println("\n" + texto);
+        System.out.println("-".repeat(texto.length()));
+    }
+}
