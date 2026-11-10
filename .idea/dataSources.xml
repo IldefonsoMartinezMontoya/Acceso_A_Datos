@@ -11,13 +11,13 @@
     <data-source source="LOCAL" name="Apache Derby (Embedded)" uuid="0cefdcce-d82e-473a-a875-64707b677106">
       <driver-ref>derby.embedded</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>org.apache.derby.jdbc.EmbeddedDriver</jdbc-driver>
+      <jdbc-driver>org.apache.derby.iapi.jdbc.AutoloadedDriver</jdbc-driver>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
     <data-source source="LOCAL" name="Apache Derby" uuid="25011dd7-ac7b-45be-ac06-d003df000cab">
       <driver-ref>derby.embedded</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>org.apache.derby.jdbc.EmbeddedDriver</jdbc-driver>
+      <jdbc-driver>org.apache.derby.iapi.jdbc.AutoloadedDriver</jdbc-driver>
       <jdbc-url>jdbc:derby:$USER_HOME$/Desktop/BBDD/ApacheDerby</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
